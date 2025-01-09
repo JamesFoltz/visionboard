@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vision Board</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css" />
+    <style>
+      body {
+          background-color: #000;
+      }
+      .terminal {
+          --color: #00ff00;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal"></div>
+
+    <script>
+      $(function () {
+        const presetTexts = {
+            edugoal:"[[;red;]🕮]Read - ACOTAR Series\n[[b;yellow;]✎]Writing - Start A Blog\n💯GPA Goal - 3.25\n",
+            careergoal: "[[bg;red;]ⓘ]Data Science and Analytics\n",
+            selfgoal: "Get better sleep\n",
+            syshealth: "See `selfgoal`\n",
+            finance: "<OBTAIN JOB>\n",
+            
+        };
+
+        $("#terminal").terminal(
+          function (command) {
+            if (command in presetTexts) {
+              if (typeof presetTexts[command] === "function") {
+                this.echo(presetTexts[command]());
+              } else {
+                this.echo(presetTexts[command]);
+              }
+            } else {
+              this.echo("");
+            }
+          },
+          {
+            greetings: "[[gb;red;]My 2025 Vision Board]\n",
+            scrollOnEcho: true,
+            height: window.innerHeight * 0.9,
+            prompt: "JAM3S_f> ",
+            onInit: function (term) {
+              term.exec("edugoal");
+              term.exec("careergoal");
+              term.exec("selfgoal");
+              term.exec("syshealth");
+              term.exec("finance");
+            },
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
